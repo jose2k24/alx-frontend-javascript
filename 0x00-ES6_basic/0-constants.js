@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 /**
  * Returns a string that expresses a preference for using const.
  * @returns {string} A string expressing a preference for using const.
@@ -25,4 +27,3 @@ export function taskFirst() {
   export function getLast() {
     return ' is okay';
   }
-  
