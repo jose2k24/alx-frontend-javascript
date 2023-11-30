@@ -54,9 +54,9 @@ foo@pop-os:~$ sudo apt install nodejs -y
 
 ```console
 foo@pop-os:~$ nodejs -v
-v12.22.1
+v12.11.1
 foo@pop-os:~$ npm -v
-6.14.12
+6.11.3
 ```
 
 ### Install Jest, Babel, and ESLint
