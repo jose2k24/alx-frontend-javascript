@@ -1,56 +1,75 @@
-// Write an interface named Student that accepts the following elements:
-// firstName(string), lastName(string), age(number), and location(string)
-interface Student {
+interface Teacher {
+    readonly firstName: string;
+    readonly lastName: string;
+    fullTimeEmployee: boolean;
+    location: string;
+    yearsOfExperience?: number;
+    [key: string]: any
+}
+
+interface Directors extends Teacher {
+    numberOfReports: number;
+}
+
+const teacher1: Teacher = {
+    firstName: 'Frank',
+    lastName: 'Donald',
+    fullTimeEmployee: true,
+    location: 'New Jersey',
+    contract: false,
+}
+
+console.log(teacher1);
+
+const director1: Directors = {
+    firstName: 'John',
+    lastName: 'Smith',
+    location: 'America',
+    fullTimeEmployee: true,
+    numberOfReports: 17,
+  };
+
+console.log(director1);
+
+interface printTeacherFunction {
+    (firstName: string, lastName: string): string;
+}
+
+export const printTeacher: printTeacherFunction = (firstName: string, lastName: string): string => `${firstName[0]}. ${lastName}`;
+
+console.log(printTeacher('john', 'doe'));
+
+interface StudentClassInterface {
     firstName: string;
     lastName: string;
-    age: number;
-    location: string;
 }
 
-// Create two students
-const studentOne: Student = {
-    firstName: 'Olumide',
-    lastName: 'Micheal',
-    age: 23,
-    location: 'Lagos',
+interface StudentClassConstructorInterface {
+    new(firstName: string, lastName: string): StudentClassInterface; 
 }
 
-const studentTwo: Student = {
-    firstName: 'Tolulope',
-    lastName: 'Micheal',
-    age: 25,
-    location: 'Canada',
+class StudentClass implements StudentClassInterface {
+    firstName: string;
+    lastName: string;
+
+    constructor(firstName: string, lastName: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    workOnHomework(): string {
+        return 'Currently working';
+    }
+
+    displayName(): string {
+        return this.firstName;
+    }
 }
 
-// create an array named studentsList containing the two variables
-const studentsList: Student[] = [studentOne, studentTwo];
+function createStudent(cStudent: StudentClassConstructorInterface, firstName: string, lastName: string): StudentClassInterface {
+    return new cStudent(firstName, lastName);
+}
 
-// Using Vanilla Javascript, render a table and for each elements in the array, append a new row to the table
-let table = document.createElement('table');
-let tableBody = document.createElement('tbody');
-table.style.width = '100%';
-table.style.background = '#34ebeb'
+const student1 = createStudent(StudentClass, 'mike', 'tyson');
+console.log(student1);
 
-studentsList.forEach(student => {
-    let row = document.createElement('tr');
-    let nameCol = document.createElement('td');
-    let locationCol = document.createElement('td');
-    
-    // Each row should contain the first name of the student and the location
-    nameCol.textContent = student.firstName;
-    locationCol.textContent = student.location;
-    nameCol.style.textAlign = 'center';
-    locationCol.style.textAlign = 'center';
-    nameCol.style.color = '#000';
-    locationCol.style.color = '#000';
-    nameCol.style.border = '1px dotted black';
-    locationCol.style.border = '1px dotted black';
-    nameCol.style.height = '300px';
-    locationCol.style.height = '300px';
-    
-    row.appendChild(nameCol); // append the cell to the row
-    row.appendChild(locationCol); // append the cell to the row
-    tableBody.appendChild(row); // append the row to the tbody
-});
-table.appendChild(tableBody); // append the tbody to the table
-document.body.appendChild(table); // append the table to the body
